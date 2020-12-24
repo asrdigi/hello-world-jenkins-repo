@@ -4,6 +4,7 @@ pipeline {
 	stage('Maven Compile'){
 		steps{
 			echo 'Project compile stage'
+			cd hello-world-jenkins
 			bat label: 'Compilation running', script: '''mvn compile'''
 	       	}
 	}
@@ -11,19 +12,22 @@ pipeline {
 	stage('Unit Test') {
 	   steps {
 			echo 'Project Testing stage'
+			cd hello-world-jenkins
 			bat label: 'Test running', script: '''mvn test'''
-	       
-       		}
+	     }
    	}
 
 	stage('Jacoco Coverage Report') {
         	steps{
+        			cd hello-world-jenkins
             		jacoco()
+            		
 		}
 	}
        
        stage('SonarQube'){
 		steps{
+		 		cd hello-world-jenkins
 				bat label: '', script: '''mvn sonar:sonar \
 				-Dsonar.host.url=http://localhost:9000 \
 				-Dsonar.login=4e786f6325bc6bac3fca0554d8f0dbf7a3a5b719'''
@@ -33,6 +37,7 @@ pipeline {
 	stage('Maven Package'){
 		steps{
 			echo 'Project packaging stage'
+			cd hello-world-jenkins
 			bat label: 'Project packaging', script: '''mvn package'''
 		}
 	} 		
