@@ -13,23 +13,8 @@ pipeline {
 			echo 'Project Testing stage'
 			bat label: 'Test running', script: '''mvn test'''
 	       
-       }
-       pipeline {
-  agent any
-  stages {	
-	stage('Maven Compile'){
-		steps{
-			echo 'Project compile stage'
-			bat label: 'Compilation running', script: '''mvn compile'''
-	       	}
-	}
-	
-	stage('Unit Test') {
-	   steps {
-			echo 'Project Testing stage'
-			bat label: 'Test running', script: '''mvn test'''
-	       
-       }
+       		}
+   	}
 
 	stage('Jacoco Coverage Report') {
         	steps{
@@ -41,24 +26,7 @@ pipeline {
 		steps{
 				bat label: '', script: '''mvn sonar:sonar \
 				-Dsonar.host.url=http://localhost:9000 \
-				-Dsonar.login=0d60f0bb4ad1cd2a79effc2623ed0e4a77fd4e90'''
-			}
-   		}
-	
-	stage('Maven Package'){
-		steps{
-			echo 'Project packaging stage'
-			bat label: 'Project packaging', script: '''mvn package'''
-		}
-	} 		
-    
-  }
-}
-       stage('SonarQube'){
-		steps{
-				bat label: '', script: '''mvn sonar:sonar \
-				-Dsonar.host.url=http://localhost:9000 \
-				-Dsonar.login=0d60f0bb4ad1cd2a79effc2623ed0e4a77fd4e90'''
+				-Dsonar.login=4e786f6325bc6bac3fca0554d8f0dbf7a3a5b719'''
 			}
    		}
 	
